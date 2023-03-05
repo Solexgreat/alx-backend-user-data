@@ -6,7 +6,6 @@ from mysql.connector import connection
 from os import environ
 
 
-
 PII_FIELDS = ('name', 'email', 'password', 'ssn', 'phone')
 
 def filter_datum(fields, redaction, message, separator):
@@ -14,6 +13,7 @@ def filter_datum(fields, redaction, message, separator):
     for field in fields:
         temp = re.sub(field + "=.*?" + separator, field + "=" + redaction + separator, temp)
     return temp
+
 
 def get_logger() -> logging.Logger:
     """ Returns logger obj  """
@@ -25,6 +25,7 @@ def get_logger() -> logging.Logger:
     stream_handler.setFormatter(RedactingFormatter(PII_FIELDS))
     logger.addHandler(stream_handler)
     return logger
+
 
 def get_db() -> connection.MySQLConnection:
     """
@@ -40,6 +41,7 @@ def get_db() -> connection.MySQLConnection:
         host=db_host,
         database=db_name)
     return 
+
 
 class RedactingFormatter(logging.Formatter):
     """ Redacting Formatter class
