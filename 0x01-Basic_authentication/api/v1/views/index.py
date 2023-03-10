@@ -41,5 +41,3 @@ def forbidden() -> str:
     - abort (403)
     """
     return abort(403)
-
-
