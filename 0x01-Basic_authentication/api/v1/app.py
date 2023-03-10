@@ -16,11 +16,10 @@ CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 auth = None
 auth_type = os.environ.get("AUTH_TYPE")
 
-if auth_type == "jwt":
-    auth = Auth()
+#if auth_type == "jwt":
+#    auth = Auth()
 
-if auth:
-    auth = Auth()
+auth = Auth()
 
 
 @app.before_request
