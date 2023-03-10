@@ -23,7 +23,6 @@ if auth:
     auth = Auth()
 
 
-
 @app.before_request
 def before_request_handler():
     """
