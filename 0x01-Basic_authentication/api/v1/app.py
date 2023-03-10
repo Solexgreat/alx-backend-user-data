@@ -37,8 +37,7 @@ def before_request_handler():
                 return abort(401)
             if auth.current_user(request) is None:
                 return abort(403)
-        
-        
+
 @app.errorhandler(401)
 def unauthorized(error) -> str:
     """ Not found handler
