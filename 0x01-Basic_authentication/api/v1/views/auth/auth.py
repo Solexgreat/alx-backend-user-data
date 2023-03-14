@@ -24,11 +24,7 @@ class Auth:
         if request is None or 'Authorization' not in request.headers:
             return None
         else:
-<<<<<<< HEAD
             return request.headers['Authorization']
-=======
-            return request.headers['Authoriztion']
->>>>>>> origin/main
     
     def current_user(self, request=None) -> TypeVar('User'):
         """
