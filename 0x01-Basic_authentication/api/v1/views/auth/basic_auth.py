@@ -48,13 +48,15 @@ class BasicAuth(Auth):
             users = User.search({'email': user_email})
         except Exception:
             return None
-        for user in users: 
+        for user in users:
             if user.is_valid_password(user_pwd):
                 return user
     def current_user(self, request=None) -> TypeVar('User'):
         """Overrides Auth and retrieves User instance for request
         """
-        headValue = Auth.authorization_header(request)
+        # Retrieve auth header from the request using Auth method
+        headValue = self.authorization_header(request)
+        
         BasicValue = self.extract_base64_authorization_header(headValue)
         decodedValue = self.decode_base64_authorization_header(BasicValue)
         email, pwd = self.extract_user_credentials(decodedValue)
