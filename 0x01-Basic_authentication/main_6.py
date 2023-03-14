@@ -2,7 +2,7 @@
 """ Main 6
 """
 import base64
-from api.v1.auth.basic_auth import BasicAuth
+from api.v1.views.auth.basic_auth import BasicAuth
 from models.user import User
 
 """ Create a user test """
