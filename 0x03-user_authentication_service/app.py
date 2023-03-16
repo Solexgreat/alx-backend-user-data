@@ -8,15 +8,19 @@ from auth import Auth
 AUTH = Auth()
 app = Flask(__name__)
 
-@app.route("/", method='GET')
-def welcome():
-    """
+@app.route("/", methods=['GET'], strict_slashes=False)
+def status() -> str:
+    """GET/status
+        :
+        Return jsonify 
     """
     return jsonify({"message": "Bienvenue"})
 
-@app.route('/users', method='POST')
-def register_user():
-    """Register User
+@app.route('/users', methods=['POST'], strict_slashes=False)
+def register_user() -> str:
+    """POST/ User
+        Register  new User
+        :Return jsonify playload
     """
     email = request.form.get('email')
     password = request.form.get('password')
