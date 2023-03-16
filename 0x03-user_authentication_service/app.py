@@ -12,7 +12,7 @@ app = Flask(__name__)
 def status() -> str:
     """GET/status
         :
-        Return jsonify 
+        Return jsonify
     """
     return jsonify({"message": "Bienvenue"})
 
