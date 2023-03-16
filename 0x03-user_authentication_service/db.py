@@ -44,7 +44,7 @@ class DB:
         return (user)
     
     def find_user_by(self, **kwargs) -> User:
-        """
+        """Find user by input arguments
         """
         try:
             user = self._session.query(User).filter_by(**kwargs).first()
