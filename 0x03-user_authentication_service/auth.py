@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""
+"""Authentication
 """
 import bcrypt
 from db import DB
@@ -25,7 +25,8 @@ class Auth:
             new_user = self._db.add_user(email, hash_pwd)    
         return new_user
 
-def _hash_password(password: str) ->bytes:
+
+def _hash_password(password: str) -> bytes:
     """Return hashed password
     """
     salt = bcrypt.gensalt()
