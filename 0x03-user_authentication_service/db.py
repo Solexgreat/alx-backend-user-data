@@ -37,7 +37,6 @@ class DB:
         """
         user = User(email=email, hashed_password=hashed_password)
 
-        #with self._session as session:
         self._session.add(user)
         self._session.commit()
         return (user)
@@ -52,7 +51,7 @@ class DB:
         except TypeError:
             raise InvalidRequestError
         return user
-    
+
     def update_user(self, user_id: int, **kwargs) -> None:
         """Update the user info
         """
@@ -62,6 +61,5 @@ class DB:
                 setattr(user, key, value)
             else:
                 raise ValueError("f{key} is not a valid attribute of User")
-        
         self._session.commit()
         return None
