@@ -5,11 +5,11 @@ from flask import Flask, jsonify, request, abort, redirect
 from auth import Auth
 
 
-AUTH = Auth()
 app = Flask(__name__)
+AUTH = Auth()
 
 
-@app.route("/", methods=['GET'], strict_slashes=False)
+@app.route('/', methods=['GET'], strict_slashes=False)
 def status() -> str:
     """GET/status
         :
@@ -28,7 +28,6 @@ def register_user() -> str:
     # Get data from form request, change to request.get_json() for body
     email = request.form.get('email')
     password = request.form.get('password')
-
 
     try:
         user = AUTH.register_user(email, password)
