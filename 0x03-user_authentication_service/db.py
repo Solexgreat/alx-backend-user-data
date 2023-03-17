@@ -62,3 +62,4 @@ class DB:
                 setattr(user, key, value)
             else:
                 raise ValueError("f{key} is not a valid attribute of User")
+        return None
