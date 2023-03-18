@@ -53,6 +53,7 @@ class Auth:
             return bcrypt.checkpw(password_bytes, hashed_pwd)
         except (NoResultFound, InvalidRequestError):
             return False
+        
     def create_session(self, email: str) -> str:
         """Genrate a session_id
         """
@@ -63,3 +64,39 @@ class Auth:
             return session_id
         except NoResultFound:
             return None
+        
+    def get_user_from_session_id(self, session_id: str) -> User:
+        """Get the user through the session_id
+        """
+        if not session_id:
+            return None
+        try:
+            user = self._db.find_user_by(session_id=session_id)
+            return user
+        except:
+            return None
+        
+    def destroy_session(self, user_id: int) -> None:
+        """Updates user's session_id to None
+        """
+        if not user_id:
+            return None
+        try:
+            user = self._db.find_user_by(id=user_id)
+            session_id = None
+            self._db.update_user(user.id, session_id=session_id)
+        except NoResultFound:
+            return None
+        
+    def get_reset_password_token(self, email: str) -> str:
+        """Generate new token with uuid4
+        """
+        try:
+            user = self._db.find_user_by(email=email)
+            if user:
+                reset_token = _generate_uuid()
+                self._db.update_user(user.id, reset_token=reset_token)
+                return reset_token
+        except:
+            raise ValueError
+

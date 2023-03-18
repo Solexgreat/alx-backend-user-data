@@ -60,6 +60,47 @@ def login() -> str:
     else: 
         abort(401)
 
+@app.route('/logout', methods=['DELETE'], strict_slashes=False)
+def logout():
+    """DELETE session
+       find user by session id gotten from cookies
+       :Retrun
+        -   redirct to status route (GET /)
+    """
+    session_id = request.cookies.get("session_id")
+    user = AUTH.get_user_from_session_id(session_id)
+    if user:
+        AUTH.destroy_session(user.id)
+        return redirect('/')
+    abort(403)
+
+@app.route('/profile', methods=['GET'], strict_slashes=False)
+def profile():
+    """GET / profile
+       :Retrun
+       -    use sesion_id to find user
+        - 403 if session_id or user is not found
+    """
+    session_id = request.cookies.get("session_id")
+    if session_id is None:
+        abort(403)
+    user = AUTH.get_user_from_session_id(session_id)
+    if user:
+        return jsonify({"email": user.email}), 200
+    abort(403)
+
+@app.route('/reset_password', methods=['POST'], strict_slashes=False)
+def get_reset_password_token():
+    """POST /reset_password
+        :Return status 403 if email is invalid
+    """
+    email = request.form.get(email)
+    reset_token = AUTH.get_reset_password_token(email)
+    if reset_token:
+        return jsonify({"email": email, "reset_token": reset_token}), 200
+    else:
+        abort(403)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
