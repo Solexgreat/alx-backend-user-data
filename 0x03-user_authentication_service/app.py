@@ -92,8 +92,8 @@ def profile():
         return jsonify({"email": user.email}), 200
     abort(403)
 
-@a
-pp.route('/reset_password', methods=['POST'], strict_slashes=False)
+
+@app.route('/reset_password', methods=['POST'], strict_slashes=False)
 def get_reset_password_token():
     """POST /reset_password
         :Return
@@ -120,7 +120,7 @@ def update_password():
         AUTH.update_password(reset_token, new_password)
     except Exception:
         abort(403)
-    
+
     return jsonify({"email": email, "message": "Password updated"})
 
 
