@@ -35,30 +35,32 @@ def register_user() -> str:
         user = AUTH.register_user(email, password)
         if user is not None:
             return jsonify(
-                {"email": user.email, 
+                {"email": user.email,
                  "message": "user created"
                  })
     except ValueError:
-        return jsonify({"message": 
+        return jsonify({"message":
                         "email already registered"}), 400
+
 
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
 def login() -> str:
-    """Validate the Login info 
+    """Validate the Login info
        and create a login session
     """
     email = request.form.get('email')
     password = request.form.get('password')
-    
+
     user = AUTH.valid_login(email, password)
     if user:
         session_id = AUTH.create_session(email)
         response = jsonify({"email": email,
-                        "message": "logged in"})
+                            "message": "logged in"})
         response.set_cookie("session_id", session_id)
         return response
-    else: 
+    else:
         abort(401)
+
 
 @app.route('/logout', methods=['DELETE'], strict_slashes=False)
 def logout():
@@ -73,6 +75,7 @@ def logout():
         AUTH.destroy_session(user.id)
         return redirect('/')
     abort(403)
+
 
 @app.route('/profile', methods=['GET'], strict_slashes=False)
 def profile():
@@ -89,7 +92,8 @@ def profile():
         return jsonify({"email": user.email}), 200
     abort(403)
 
-@app.route('/reset_password', methods=['POST'], strict_slashes=False)
+@a
+pp.route('/reset_password', methods=['POST'], strict_slashes=False)
 def get_reset_password_token():
     """POST /reset_password
         :Return
@@ -102,10 +106,11 @@ def get_reset_password_token():
     else:
         abort(403)
 
+
 @app.route('/reset_password', methods=['PUT'], strict_slashes=False)
 def update_password():
     """PUT /reset_password
-       :Return 
+       :Return
        -status 403 if token is invalid
     """
     email = request.form.get(email)
@@ -113,9 +118,11 @@ def update_password():
     reset_token = request.form.get(reset_token)
     try:
         AUTH.update_password(reset_token, new_password)
-        return jsonify({"email": email, "message": "Password updated"})
-    except:
+    except Exception:
         abort(403)
+    
+    return jsonify({"email": email, "message": "Password updated"})
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
