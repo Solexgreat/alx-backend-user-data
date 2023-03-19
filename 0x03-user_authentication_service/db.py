@@ -36,7 +36,6 @@ class DB:
         """Add User to session
         """
         user = User(email=email, hashed_password=hashed_password)
-
         self._session.add(user)
         self._session.commit()
         return (user)
@@ -46,10 +45,10 @@ class DB:
         """
         try:
             user = self._session.query(User).filter_by(**kwargs).first()
-            if user is None:
-                raise NoResultFound("No results are found")
         except TypeError:
             raise InvalidRequestError
+        if user is None:
+                raise NoResultFound("No results are found")
         return user
 
     def update_user(self, user_id: int, **kwargs) -> None:

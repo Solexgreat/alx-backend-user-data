@@ -78,7 +78,7 @@ def logout():
 
 
 @app.route('/profile', methods=['GET'], strict_slashes=False)
-def profile():
+def profile() -> str:
     """GET / profile
        :Retrun
        -    use sesion_id to find user
@@ -94,7 +94,7 @@ def profile():
 
 
 @app.route('/reset_password', methods=['POST'], strict_slashes=False)
-def get_reset_password_token():
+def get_reset_password_token() -> str:
     """POST /reset_password
         :Return
         -status 403 if email is invalid
@@ -108,7 +108,7 @@ def get_reset_password_token():
 
 
 @app.route('/reset_password', methods=['PUT'], strict_slashes=False)
-def update_password():
+def update_password() -> str:
     """PUT /reset_password
        :Return
        -status 403 if token is invalid
