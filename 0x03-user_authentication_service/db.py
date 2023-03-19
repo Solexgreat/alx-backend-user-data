@@ -48,7 +48,7 @@ class DB:
         except TypeError:
             raise InvalidRequestError
         if user is None:
-                raise NoResultFound("No results are found")
+            raise NoResultFound("No results are found")
         return user
 
     def update_user(self, user_id: int, **kwargs) -> None:
@@ -59,6 +59,6 @@ class DB:
             if hasattr(user, key):
                 setattr(user, key, value)
             else:
-                raise ValueError("f{key} is not a valid attribute of User")
+                raise ValueError(f"{key} is not a valid attribute of User")
         self._session.commit()
         return None
