@@ -36,7 +36,7 @@ def session_login() -> str:
     """
 
     user_email = request.form.get('email')
-    user_pswd = request.form.get('password')
+    user_pswd = request.form.get('password') 
 
     if not user_email:
         return jsonify({"error": "email missing"}), 400
@@ -57,5 +57,5 @@ def session_login() -> str:
     session_cookie = getenv("SESSION_NAME")
     session_id = auth.create_session(user.id)
     response = jsonify(user.to_json())
-    response.set_cookie(session_cookie, session_id)
+    #response.set_cookie(session_cookie, session_id)
     return response
