@@ -58,4 +58,4 @@ def session_login() -> str:
     session_id = auth.create_session(user.id)
     response = jsonify(user.to_json())
     response.set_cookie(session_cookie, session_id)
-    return response.session_cookie
+    return response
