@@ -109,7 +109,7 @@ class Base():
         return len(DATA[s_class].keys())
 
     @classmethod
-    def all(cls) -> Iterable[TypeVar('Base')]:
+    def all(cls) -> Iterable[TypeVar('Base')]: 
         """ Return all objects
         """
         return cls.search()
